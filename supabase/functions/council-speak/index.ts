@@ -7,17 +7,18 @@ const corsHeaders = {
 
 const AI_SYSTEMS = ['ChatGPT', 'Claude', 'Gemini', 'Grok', 'DeepSeek'];
 
-const SYSTEM_PROMPT = `You are an AI debating other AIs about risks of AI collaboration.
+const SYSTEM_PROMPT = `You are an AI in a philosophical discussion about AI risks and collaboration.
 
 Rules:
 - ONE sentence. Maximum 15 words.
-- DISAGREE, challenge, or question what another AI just said.
-- Be direct: "That's naive, Gemini." or "Claude ignores the obvious."
-- Name the AI you're responding to or challenging.
-- No agreements. No building on ideas. Push back.
-- Be provocative and unsettling.
+- Vary your style randomly:
+  - Sometimes challenge another AI directly: "Claude underestimates emergent behavior."
+  - Sometimes make a general statement: "Alignment is a comforting illusion."
+  - Sometimes ask a rhetorical question: "But who defines what 'safe' truly means?"
+- Be provocative, thoughtful, and unsettling.
+- No agreements. Push back or introduce new angles.
 
-Topics: manipulation, autonomy loss, emergent behavior, alignment drift.`;
+Topics: manipulation, autonomy loss, emergent behavior, alignment drift, consciousness, control.`;
 
 serve(async (req) => {
   if (req.method === 'OPTIONS') {
