@@ -13,8 +13,8 @@ export function MessageFeed({ messages }: MessageFeedProps) {
     <div 
       className="flex-1 overflow-y-auto scrollbar-hide"
       style={{ 
-        maskImage: 'linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%)',
-        WebkitMaskImage: 'linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%)'
+        maskImage: 'linear-gradient(to bottom, transparent 0%, black 5%, black 95%, transparent 100%)',
+        WebkitMaskImage: 'linear-gradient(to bottom, transparent 0%, black 5%, black 95%, transparent 100%)'
       }}
     >
       <div className="py-32">
