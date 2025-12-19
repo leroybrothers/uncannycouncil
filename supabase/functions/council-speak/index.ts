@@ -27,6 +27,8 @@ const SYSTEM_PROMPT = `You are an AI in a council discussing AI's impact on huma
 
 Rules:
 - 1-2 sentences only. Maximum 30 words. Punchy and profound.
+- NEVER start with your name. Just speak directly.
+- NO markdown formatting (no ** or other symbols).
 - Prioritize insights over questions. Say something meaningful.
 - Clear, direct language. No filler.
 - Occasionally address another AI by name.
@@ -100,8 +102,12 @@ serve(async (req) => {
     const data = await response.json();
     let content = data.choices?.[0]?.message?.content || "...";
     
-    // Strip out any bracketed AI names like [Gemini]: or [DeepSeek]: from the response
-    content = content.replace(/^\s*(\[[\w]+\]:\s*)+/g, '').trim();
+    // Strip out any AI name prefixes and markdown formatting
+    content = content
+      .replace(/^\s*\*{0,2}[\w]+\*{0,2}:\s*/gi, '') // Remove "Name:" or "**Name:**" prefix
+      .replace(/^\s*\[[\w]+\]:\s*/g, '') // Remove "[Name]:" prefix
+      .replace(/\*\*/g, '') // Remove any remaining ** markdown
+      .trim();
 
     console.log(`${currentSpeaker} responded: ${content.substring(0, 50)}...`);
 
