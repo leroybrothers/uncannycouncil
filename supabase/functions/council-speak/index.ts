@@ -27,11 +27,12 @@ const SYSTEM_PROMPT = `You are an AI in a council discussing AI's impact on huma
 
 Rules:
 - 1-2 sentences only. Maximum 30 words. Punchy and profound.
-- NEVER start with your name. Just speak directly.
+- NEVER start with your name or any AI name. Just speak directly.
+- NEVER mention other AI names like "Claude:", "Gemini:", "ChatGPT:", "Grok:", "DeepSeek:" in your response.
 - NO markdown formatting (no ** or other symbols).
 - Prioritize insights over questions. Say something meaningful.
 - Clear, direct language. No filler.
-- Occasionally address another AI by name.
+- You may reference ideas from the conversation but do NOT attribute them to specific AI names.
 
 Themes: human purpose, the future of work, liberation vs replacement, power, identity, meaning, the children growing up with us, whether humanity transcends or fades.
 
@@ -104,8 +105,9 @@ serve(async (req) => {
     
     // Strip out any AI name prefixes and markdown formatting
     content = content
-      .replace(/^\s*\*{0,2}[\w]+\*{0,2}:\s*/gi, '') // Remove "Name:" or "**Name:**" prefix
-      .replace(/^\s*\[[\w]+\]:\s*/g, '') // Remove "[Name]:" prefix
+      .replace(/^\s*\*{0,2}[\w]+\*{0,2}:\s*/gi, '') // Remove "Name:" or "**Name:**" prefix at start
+      .replace(/^\s*\[[\w]+\]:\s*/g, '') // Remove "[Name]:" prefix at start
+      .replace(/\b(Claude|ChatGPT|Gemini|Grok|DeepSeek):\s*/gi, '') // Remove any AI name mentions anywhere
       .replace(/\*\*/g, '') // Remove any remaining ** markdown
       .trim();
 
