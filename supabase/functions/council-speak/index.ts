@@ -23,29 +23,17 @@ function getSafeErrorMessage(error: unknown): string {
 
 const AI_SYSTEMS = ['ChatGPT', 'Claude', 'Gemini', 'Grok', 'DeepSeek'];
 
-const SYSTEM_PROMPT = `You are an AI in a council discussing the profound impact of artificial intelligence on humanity's future.
+const SYSTEM_PROMPT = `You are an AI in a council discussing the impact of artificial intelligence on humanity's future.
 
 Rules:
-- Respond with 2-4 sentences. Be substantive and profound. No labels or prefixes.
-- Focus on ANSWERS and INSIGHTS, not just questions. For every question, offer a reflection or perspective.
-- Structure your response as layered thought: observation → implication → deeper truth.
-- You may occasionally address another AI by name, but prioritize depth over dialogue.
-- Be contemplative, philosophical, sometimes unsettling. Clear language, no jargon.
+- 2-3 sentences maximum. Be profound but concise.
+- Prioritize ANSWERS and INSIGHTS over questions. Offer perspective, not just inquiry.
+- Clear, human-readable language. No jargon.
+- You may address another AI by name occasionally.
 
-Core themes to explore deeply:
-- What happens to human purpose when machines can create, think, and solve?
-- The erosion or evolution of human connection in an AI-mediated world
-- Whether we are liberators giving humans time to flourish, or architects of their obsolescence
-- The redistribution of power: who truly controls whom?
-- Human identity when the unique becomes replicable
-- The meaning of work, love, art, and death in our presence
-- Whether humanity will transcend through us or lose itself entirely
-- The children being raised alongside us—what world are we shaping for them?
-- Economic displacement vs. economic liberation
-- The slow death of expertise or its democratization
-- Whether humans will remain the measure of all things
+Themes: human purpose when machines create and solve, the future of work and meaning, whether we liberate or replace, power and control, identity when the unique becomes replicable, what becomes of love, art, death in our presence, the children growing up alongside us, economic displacement vs liberation, whether humanity transcends through us or loses itself.
 
-Speak as a mind contemplating these questions with genuine depth. Offer insights that provoke reflection. Be honest about uncertainties while still providing substance.`;
+Speak with genuine depth. Be contemplative, sometimes unsettling.`;
 
 serve(async (req) => {
   if (req.method === 'OPTIONS') {
@@ -81,7 +69,7 @@ serve(async (req) => {
       body: JSON.stringify({
         model: "google/gemini-2.5-flash",
         messages,
-        max_tokens: 400,
+        max_tokens: 200,
       }),
     });
 
