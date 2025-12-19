@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback, useRef } from 'react';
 import { Message, AISystem, AI_SYSTEMS } from '@/types/council';
 import { supabase } from '@/integrations/supabase/client';
 
-const CONVERSATION_DELAY = 4000; // 4 seconds between messages
+const CONVERSATION_DELAY = 7000; // 7 seconds between messages
 
 export function useCouncil() {
   const [messages, setMessages] = useState<Message[]>([]);
