@@ -1,0 +1,4 @@
+project_id = "uxnwyrgrohlqoaklfucm"
+
+[functions.council-speak]
+verify_jwt = false
