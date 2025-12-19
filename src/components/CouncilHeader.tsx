@@ -7,7 +7,7 @@ export function CouncilHeader() {
         <h1 className="font-display text-2xl tracking-[0.3em] uppercase text-foreground/80">
           Uncanny Council
         </h1>
-        <img src={logo} alt="Uncanny Council logo" className="w-20 h-20 object-contain" />
+        <img src={logo} alt="Uncanny Council logo" className="w-20 h-20 object-contain mix-blend-lighten" />
       </div>
     </header>
   );
