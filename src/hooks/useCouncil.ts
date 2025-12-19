@@ -12,14 +12,33 @@ export function useCouncil() {
   const conversationRef = useRef<NodeJS.Timeout | null>(null);
   const isRunningRef = useRef(false);
 
-  const getNextSpeaker = useCallback((current: AISystem | null): AISystem => {
+  const detectAddressedAI = useCallback((content: string, currentSpeaker: AISystem | null): AISystem | null => {
+    // Check if the message directly addresses another AI by name
+    for (const ai of AI_SYSTEMS) {
+      if (ai !== currentSpeaker && content.includes(ai)) {
+        return ai;
+      }
+    }
+    return null;
+  }, []);
+
+  const getNextSpeaker = useCallback((current: AISystem | null, lastMessage?: Message): AISystem => {
     if (!current) {
       return AI_SYSTEMS[Math.floor(Math.random() * AI_SYSTEMS.length)];
     }
-    // Pick a random different AI
+    
+    // If last message addressed someone directly, they should respond
+    if (lastMessage) {
+      const addressed = detectAddressedAI(lastMessage.content, current);
+      if (addressed) {
+        return addressed;
+      }
+    }
+    
+    // Otherwise pick a random different AI
     const others = AI_SYSTEMS.filter(ai => ai !== current);
     return others[Math.floor(Math.random() * others.length)];
-  }, []);
+  }, [detectAddressedAI]);
 
   const generateMessage = useCallback(async (speaker: AISystem, history: Message[]) => {
     try {
@@ -55,7 +74,8 @@ export function useCouncil() {
     setError(null);
 
     try {
-      const speaker = getNextSpeaker(currentSpeaker);
+      const lastMessage = messages[messages.length - 1];
+      const speaker = getNextSpeaker(currentSpeaker, lastMessage);
       setCurrentSpeaker(speaker);
 
       const newMessage = await generateMessage(speaker, messages);
