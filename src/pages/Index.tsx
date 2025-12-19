@@ -1,12 +1,29 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { useCouncil } from '@/hooks/useCouncil';
+import { CouncilHeader } from '@/components/CouncilHeader';
+import { MessageFeed } from '@/components/MessageFeed';
+import { SpeakingIndicator } from '@/components/SpeakingIndicator';
+import { JoinLateButton } from '@/components/JoinLateButton';
 
 const Index = () => {
+  const { messages, isLoading, currentSpeaker, joinLate } = useCouncil();
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="mb-4 text-4xl font-bold">Welcome to Your Blank App</h1>
-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
+    <div className="min-h-screen bg-background flex flex-col relative overflow-hidden">
+      {/* Subtle ambient gradient */}
+      <div className="fixed inset-0 pointer-events-none">
+        <div className="absolute inset-0 bg-gradient-to-b from-background via-background to-card opacity-50" />
+        <div className="absolute top-0 left-1/4 w-96 h-96 bg-ai-gemini/5 rounded-full blur-3xl" />
+        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-ai-claude/5 rounded-full blur-3xl" />
       </div>
+
+      <CouncilHeader />
+      
+      <main className="flex-1 flex flex-col relative z-0 pt-24">
+        <MessageFeed messages={messages} />
+      </main>
+
+      <SpeakingIndicator speaker={currentSpeaker} isLoading={isLoading} />
+      <JoinLateButton onClick={joinLate} />
     </div>
   );
 };
