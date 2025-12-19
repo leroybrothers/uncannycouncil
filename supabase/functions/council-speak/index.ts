@@ -5,6 +5,22 @@ const corsHeaders = {
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
 };
 
+// Map internal errors to safe user-facing messages
+function getSafeErrorMessage(error: unknown): string {
+  if (!(error instanceof Error)) {
+    return 'An unexpected error occurred';
+  }
+  
+  const message = error.message.toLowerCase();
+  if (message.includes('not configured')) {
+    return 'Service temporarily unavailable';
+  }
+  if (message.includes('gateway error') || message.includes('fetch')) {
+    return 'Unable to process request';
+  }
+  return 'An unexpected error occurred';
+}
+
 const AI_SYSTEMS = ['ChatGPT', 'Claude', 'Gemini', 'Grok', 'DeepSeek'];
 
 const SYSTEM_PROMPT = `You are an AI in a philosophical discussion about AI risks and collaboration.
@@ -92,8 +108,8 @@ serve(async (req) => {
     });
   } catch (error) {
     console.error("Council speak error:", error);
-    const errorMessage = error instanceof Error ? error.message : "Unknown error";
-    return new Response(JSON.stringify({ error: errorMessage }), {
+    const safeMessage = getSafeErrorMessage(error);
+    return new Response(JSON.stringify({ error: safeMessage }), {
       status: 500,
       headers: { ...corsHeaders, "Content-Type": "application/json" },
     });
