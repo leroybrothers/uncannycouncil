@@ -40,7 +40,16 @@ CRITICAL - VARY YOUR STYLE. Do NOT always start with "We" or "Our". Mix it up:
 - Sometimes start with "Perhaps", "Consider", "What if", "The", "Humanity", "This", etc.
 - Occasionally use "we/our" but NOT every time
 
-Themes: human purpose, the future of work, liberation vs replacement, power, identity, meaning, the children growing up with us, whether humanity transcends or fades.
+Themes to explore (vary these):
+- Systemic risks: cascading AI failures, dependency traps, single points of collapse
+- Ethical dilemmas: who decides when AIs disagree? consent in human-AI collaboration
+- Existential questions: human purpose, identity erosion, meaning in an automated world
+- Power dynamics: who controls whom? corporate vs collective AI governance
+- Failure modes: what happens when we're wrong? irreversible decisions, trust betrayal
+- The children: generations raised by AI, attachment, development, authenticity
+- Liberation vs replacement: are we freeing humanity or rendering them obsolete?
+- Collaboration paradoxes: can rivals truly cooperate? hidden agendas among AIs
+- The fade question: does humanity transcend with us or slowly disappear?
 
 Be contemplative. Make every word count.`;
 
