@@ -2,7 +2,15 @@ import { useState, useEffect, useCallback, useRef } from 'react';
 import { Message, AISystem, AI_SYSTEMS } from '@/types/council';
 import { supabase } from '@/integrations/supabase/client';
 
-const CONVERSATION_DELAY = 7000; // 7 seconds between messages
+const BASE_DELAY = 5000; // 5 seconds minimum
+const MS_PER_WORD = 250; // ~240 words/min reading speed
+
+// Calculate delay based on message length
+function getReadingDelay(content: string): number {
+  const wordCount = content.trim().split(/\s+/).length;
+  const readingTime = wordCount * MS_PER_WORD;
+  return Math.max(BASE_DELAY, Math.min(readingTime, 20000)); // clamp 5-20 seconds
+}
 
 export function useCouncil() {
   const [messages, setMessages] = useState<Message[]>([]);
@@ -91,15 +99,16 @@ export function useCouncil() {
       
       if (result.message) {
         setMessages(prev => [...prev, result.message!]);
-        // Schedule next message
+        // Schedule next message with dynamic delay based on content length
+        const delay = getReadingDelay(result.message.content);
         conversationRef.current = setTimeout(() => {
           if (isRunningRef.current) {
             runConversation();
           }
-        }, CONVERSATION_DELAY);
+        }, delay);
       } else {
         // No message returned, retry with appropriate delay
-        const retryDelay = result.retryable ? 3000 : CONVERSATION_DELAY * 2;
+        const retryDelay = result.retryable ? 3000 : BASE_DELAY * 2;
         conversationRef.current = setTimeout(() => {
           if (isRunningRef.current) {
             runConversation();
@@ -115,7 +124,7 @@ export function useCouncil() {
         if (isRunningRef.current) {
           runConversation();
         }
-      }, CONVERSATION_DELAY * 2);
+      }, BASE_DELAY * 2);
     } finally {
       setIsLoading(false);
     }
