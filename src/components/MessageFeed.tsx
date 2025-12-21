@@ -10,13 +10,7 @@ export function MessageFeed({ messages }: MessageFeedProps) {
   const reversedMessages = [...messages].reverse();
 
   return (
-    <div 
-      className="flex-1 overflow-y-auto scrollbar-hide"
-      style={{ 
-        maskImage: 'linear-gradient(to bottom, transparent 0%, black 5%, black 95%, transparent 100%)',
-        WebkitMaskImage: 'linear-gradient(to bottom, transparent 0%, black 5%, black 95%, transparent 100%)'
-      }}
-    >
+    <div className="flex-1 overflow-y-auto scrollbar-hide">
       <div className="py-32">
         {reversedMessages.map((message, index) => (
           <CouncilMessage 
