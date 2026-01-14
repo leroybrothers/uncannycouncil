@@ -11,7 +11,7 @@ export function MessageFeed({ messages }: MessageFeedProps) {
 
   return (
     <div className="flex-1 overflow-y-auto scrollbar-hide">
-      <div className="pt-2 pb-32">
+      <div className="pb-32">
         {reversedMessages.map((message, index) => (
           <CouncilMessage 
             key={message.id} 
