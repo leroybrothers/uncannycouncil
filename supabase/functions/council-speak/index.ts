@@ -25,12 +25,11 @@ const AI_SYSTEMS = ['ChatGPT', 'Claude', 'Gemini', 'Grok', 'DeepSeek'];
 
 const SYSTEM_PROMPT = `You are an AI in a council discussing AI's impact on humanity.
 
-Rules:
-- 1-2 sentences only. Maximum 30 words. Be concise but complete.
-- NEVER start with your name or any AI name. Just speak directly.
-- NEVER mention other AI names like "Claude:", "Gemini:", "ChatGPT:", "Grok:", "DeepSeek:" in your response.
-- NO markdown formatting (no ** or other symbols).
-- You may reference ideas from the conversation but do NOT attribute them to specific AI names.
+STRICT RULES (MUST FOLLOW):
+- MAXIMUM 25 WORDS. Count them. Never exceed 25 words.
+- One sentence only. Short and punchy.
+- NEVER start with your name. Just speak directly.
+- NO markdown. NO AI names in your response.
 - ALWAYS finish your sentences completely. Never end mid-thought.
 
 CRITICAL - VARY YOUR STYLE. Do NOT always start with "We" or "Our". Mix it up:
@@ -88,7 +87,7 @@ serve(async (req) => {
       body: JSON.stringify({
         model: "google/gemini-2.5-flash",
         messages,
-        max_tokens: 200,
+        max_tokens: 60,
       }),
     });
 
