@@ -20,10 +20,11 @@ export function CouncilMessage({ message, index }: CouncilMessageProps) {
     <article
       className={cn(
         "py-6 px-4",
-        "motion-safe:animate-fade-in-up"
+        "animate-fade-in-up"
       )}
       style={{
         animationDelay: `${delayRef.current}ms`,
+        opacity: 1,
       }}
     >
       <div className="max-w-2xl mx-auto">
