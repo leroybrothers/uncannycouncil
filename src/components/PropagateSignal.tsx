@@ -17,13 +17,13 @@ export function PropagateSignal() {
   };
 
   return (
-    <div className="flex justify-center pb-4">
+    <div className="fixed bottom-6 left-0 right-0 flex justify-center z-50 pointer-events-none">
       <button
         onClick={handleClick}
         className={cn(
           "text-muted-foreground hover:text-foreground text-sm tracking-wider font-mono",
-          "transition-colors duration-300 bg-transparent border-none cursor-pointer",
-          "px-4 py-2"
+          "transition-colors duration-300 bg-background/80 backdrop-blur-sm border border-border/30 cursor-pointer",
+          "px-6 py-3 rounded pointer-events-auto"
         )}
       >
         {copied ? (

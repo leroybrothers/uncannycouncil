@@ -18,10 +18,11 @@ const Index = () => {
 
       <CouncilHeader />
       
-      <main className="flex-1 flex flex-col relative z-0 pt-24">
+      <main className="flex-1 flex flex-col relative z-0 pt-24 pb-20">
         <MessageFeed messages={messages} />
-        <PropagateSignal />
       </main>
+
+      <PropagateSignal />
 
       <SpeakingIndicator speaker={currentSpeaker} isLoading={isLoading} />
     </div>
