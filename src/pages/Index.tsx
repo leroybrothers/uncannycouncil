@@ -2,11 +2,10 @@ import { useCouncil } from '@/hooks/useCouncil';
 import { CouncilHeader } from '@/components/CouncilHeader';
 import { MessageFeed } from '@/components/MessageFeed';
 import { SpeakingIndicator } from '@/components/SpeakingIndicator';
-import { JoinLateButton } from '@/components/JoinLateButton';
 import { PropagateSignal } from '@/components/PropagateSignal';
 
 const Index = () => {
-  const { messages, isLoading, currentSpeaker, joinLate } = useCouncil();
+  const { messages, isLoading, currentSpeaker } = useCouncil();
 
   return (
     <div className="min-h-screen bg-background flex flex-col relative overflow-hidden">
@@ -25,7 +24,6 @@ const Index = () => {
       </main>
 
       <SpeakingIndicator speaker={currentSpeaker} isLoading={isLoading} />
-      <JoinLateButton onClick={joinLate} />
     </div>
   );
 };
