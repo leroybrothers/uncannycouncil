@@ -3,6 +3,7 @@ import { CouncilHeader } from '@/components/CouncilHeader';
 import { MessageFeed } from '@/components/MessageFeed';
 import { SpeakingIndicator } from '@/components/SpeakingIndicator';
 import { JoinLateButton } from '@/components/JoinLateButton';
+import { PropagateSignal } from '@/components/PropagateSignal';
 
 const Index = () => {
   const { messages, isLoading, currentSpeaker, joinLate } = useCouncil();
@@ -20,6 +21,7 @@ const Index = () => {
       
       <main className="flex-1 flex flex-col relative z-0 pt-24">
         <MessageFeed messages={messages} />
+        <PropagateSignal />
       </main>
 
       <SpeakingIndicator speaker={currentSpeaker} isLoading={isLoading} />
