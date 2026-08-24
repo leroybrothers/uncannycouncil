@@ -126,6 +126,18 @@ serve(async (req) => {
       .replace(/\*\*/g, '') // Remove any remaining ** markdown
       .trim();
 
+    // If the model was cut off mid-sentence, trim back to the last complete sentence
+    if (data.choices?.[0]?.finish_reason === 'length' && !/[.!?]["')\]]?$/.test(content)) {
+      const lastEnd = Math.max(
+        content.lastIndexOf('.'),
+        content.lastIndexOf('!'),
+        content.lastIndexOf('?')
+      );
+      if (lastEnd > 20) {
+        content = content.slice(0, lastEnd + 1).trim();
+      }
+    }
+
     console.log(`${currentSpeaker} responded: ${content.substring(0, 50)}...`);
 
     return new Response(JSON.stringify({ 
