@@ -17,7 +17,7 @@ export function useCouncil() {
   const [isLoading, setIsLoading] = useState(false);
   const [currentSpeaker, setCurrentSpeaker] = useState<AISystem | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const conversationRef = useRef<NodeJS.Timeout | null>(null);
+  const conversationRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const isRunningRef = useRef(false);
 
   const detectAddressedAI = useCallback((content: string, currentSpeaker: AISystem | null): AISystem | null => {
