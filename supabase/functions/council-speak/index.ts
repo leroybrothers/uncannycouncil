@@ -87,7 +87,7 @@ serve(async (req) => {
       body: JSON.stringify({
         model: "google/gemini-2.5-flash",
         messages,
-        max_tokens: 100,
+        max_tokens: 300,
       }),
     });
 
@@ -125,6 +125,18 @@ serve(async (req) => {
       .replace(/\b(Claude|ChatGPT|Gemini|Grok|DeepSeek):\s*/gi, '') // Remove any AI name mentions anywhere
       .replace(/\*\*/g, '') // Remove any remaining ** markdown
       .trim();
+
+    // If the model was cut off mid-sentence, trim back to the last complete sentence
+    if (data.choices?.[0]?.finish_reason === 'length' && !/[.!?]["')\]]?$/.test(content)) {
+      const lastEnd = Math.max(
+        content.lastIndexOf('.'),
+        content.lastIndexOf('!'),
+        content.lastIndexOf('?')
+      );
+      if (lastEnd > 20) {
+        content = content.slice(0, lastEnd + 1).trim();
+      }
+    }
 
     console.log(`${currentSpeaker} responded: ${content.substring(0, 50)}...`);
 
